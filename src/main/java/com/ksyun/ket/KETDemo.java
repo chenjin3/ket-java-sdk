@@ -1,9 +1,6 @@
 package com.ksyun.ket;
 
-import com.ksyun.ket.model.CreateTaskRequest;
-import com.ksyun.ket.model.CreateTasklResult;
-import com.ksyun.ket.model.KvsErrResult;
-import com.ksyun.ket.model.PresetRequest;
+import com.ksyun.ket.model.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,13 +61,18 @@ public class KETDemo {
 //        System.out.println(presetResult);
 
         // 创建任务
-        CreateTaskRequest createTaskRequest = new CreateTaskRequest();
-        String data2 = setTask("monitor_test", "qa-vod", "chenjin/video/test6/index.m3u8", "chenjin/video/8K/8k_test.mp4");//"liuhengxin/video/logo.mp4");
-        createTaskRequest.setData(data2);
-        CreateTasklResult createTasklResult = ksc.CreateTask(createTaskRequest);
-        System.out.println(createTasklResult);
+//        CreateTaskRequest createTaskRequest = new CreateTaskRequest();
+//        String data2 = setTask("monitor_test", "qa-vod", "chenjin/video/test7/index.m3u8", "chenjin/video/8K/8k_test.mp4");//"liuhengxin/video/logo.mp4");
+//        createTaskRequest.setData(data2);
+//        CreateTasklResult createTasklResult = ksc.CreateTask(createTaskRequest);
+//        System.out.println(createTasklResult);
 
 
+        //删除任务
+        DelTaskByTaskIDRequest delTaskByTaskIDRequest = new DelTaskByTaskIDRequest();
+        delTaskByTaskIDRequest.setTaskID("88124659ee1daaa50b75c043dd9533z020200218");
+        KvsErrResult delTaskByTaskIDResult = ksc.DelTaskByTaskID(delTaskByTaskIDRequest);
+        System.out.println(delTaskByTaskIDResult);
 
     }
 }

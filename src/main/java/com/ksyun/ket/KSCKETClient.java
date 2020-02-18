@@ -1,21 +1,26 @@
 package com.ksyun.ket;
 
-import com.ksyun.ket.model.CreateTaskRequest;
-import com.ksyun.ket.model.CreateTasklResult;
-import com.ksyun.ket.model.KvsErrResult;
-import com.ksyun.ket.model.PresetRequest;
+import com.ksyun.ket.model.*;
 import org.apache.http.*;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 //import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.nio.charset.Charset;
 
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -65,6 +70,15 @@ public class KSCKETClient {
         return result;
     }
 
+    //删除任务
+    public KvsErrResult DelTaskByTaskID(DelTaskByTaskIDRequest delTaskByTaskIDRequest) {
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("TaskID", delTaskByTaskIDRequest.getTaskID()));
+        String resStr = this.get(this.endpoint + "DelTaskByTaskID", null, params);
+        KvsErrResult result = com.alibaba.fastjson.JSONObject.parseObject(resStr, KvsErrResult.class);
+        return result;
+    }
+
     //创建模板
     public KvsErrResult Preset( PresetRequest presetRequest) {
         String resStr = this.post(this.endpoint + "Preset", null, presetRequest.getData());
@@ -73,17 +87,12 @@ public class KSCKETClient {
     }
 
     private String post(String url, Map<String, String> headers, String body) {
+        System.out.println("POST " + url);
+
         HttpPost request = new HttpPost(url);
         String result = "";
 
-        request.setHeader("Content-type", "application/json; charset=utf-8");
-        request.setHeader("X-KSC-VERSION","2017-01-01");
-        request.setHeader("X-KSC-ACCOUNT-ID",this.customID);
-        if (headers != null) {
-            for (String key: headers.keySet()) {
-                request.addHeader(key, headers.get(key));
-            }
-        }
+        setHeaders(request, headers);
 
         StringEntity entity = new StringEntity(body, Charset.forName("UTF-8"));
         entity.setContentEncoding("UTF-8");
@@ -110,6 +119,50 @@ public class KSCKETClient {
 
         return result;
     }
+
+    private String get(String url, Map<String, String> headers,List<NameValuePair> params) {
+        HttpResponse response = null;
+        String result = "";
+        HttpGet request = new HttpGet(url);
+
+        try {
+            String str = EntityUtils.toString(new UrlEncodedFormEntity(params, Charset.forName("UTF-8")));
+            request.setURI(new URI(request.getURI().toString() + "?" + str));
+
+            setHeaders(request, headers);
+
+            response = httpClient.execute(request);
+            int statusCode = response.getStatusLine().getStatusCode();
+
+            if(statusCode == HttpStatus.SC_OK){
+                HttpEntity httpEntity = response.getEntity();
+                result = EntityUtils.toString(httpEntity);//取出应答字符串
+                return result;
+            } else {
+                System.out.println("status: " + statusCode);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            result = e.getMessage();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            result = e.getMessage();
+        }
+
+        return result;
+    }
+
+    private void setHeaders(HttpRequestBase request, Map<String, String> headers){
+        request.setHeader("Content-type", "application/json; charset=utf-8");
+        request.setHeader("X-KSC-VERSION","2017-01-01");
+        request.setHeader("X-KSC-ACCOUNT-ID",this.customID);
+        if (headers != null) {
+            for (String key: headers.keySet()) {
+                request.addHeader(key, headers.get(key));
+            }
+        }
+    }
+
 
     public static void main(String[] args) {
         System.out.println("hi");
