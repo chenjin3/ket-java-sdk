@@ -1,5 +1,7 @@
 package com.ksyun.ket.model;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class GetTaskListResult {
 
 	private String StartDate;
@@ -68,5 +70,9 @@ public class GetTaskListResult {
 	}
 
 
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
+	}
 
 }

@@ -12,4 +12,5 @@ public class DeletePresetRequest  {
 		this.preset = preset;
 	}
 
+
 }

@@ -1,6 +1,8 @@
 package com.ksyun.ket.model;
 
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,18 +49,7 @@ public class GetPresetListResult {
 
 	@Override
 	public String toString() {
-		StringBuilder result = new StringBuilder( "ErrNum=" + errNum + " ErrMsg=" + errMsg + "\n");
-		for(Preset preset: PresetList){
-			String presetStr= "{\n" +
-					"            \"Preset\": \""+ preset.getPreset() +"\",\n" +
-					"            \"PresetType\": \""+preset.getPresetType()+"\",\n" +
-					"            \"Description\": \"" +preset.getDescription()+ "\",\n" +
-					"            \"CreateTime\": \""+preset.getCreateTime()+"\",\n" +
-					"            \"UpdateTime\": \""+preset.getUpdateTime()+"\",\n" +
-					"},\n";
-			result.append(presetStr);
-		}
-		return result.toString();
+		return JSONObject.toJSONString(this);
 	}
 
 

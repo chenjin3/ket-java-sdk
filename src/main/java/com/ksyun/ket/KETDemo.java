@@ -33,6 +33,25 @@ public class KETDemo {
         return data.toString();
     }
 
+    //准备更新模板数据
+    private static String setPresetSet4Update(String preset, String description) throws JSONException {
+        String presettype = "avtrans";
+        JSONObject data = new JSONObject();
+        JSONObject param = new JSONObject();
+        JSONObject video = new JSONObject();
+        data.put("Preset", preset);
+        data.put("PresetType", presettype);
+        data.put("Description", description);
+
+        video.put("height", 360);
+        video.put("as", 1);
+
+        param.put("f", "flv");
+        param.put("VIDEO", video);
+        data.put("Param", param);
+        return data.toString();
+    }
+
     //准备创建任务的数据
     private static String setTask(String preset, String dst_bucket, String dst_object_key, String src_object_key)
             throws JSONException {
@@ -53,10 +72,12 @@ public class KETDemo {
     public static void main(String[] args) {
         KSCKETClient ksc = new KSCKETClient("73404025","http://10.69.67.113:8091/offline/");
 
+        /**
+         * 模板管理
+         */
         //创建模板
-        //TODO: to test
 //        PresetRequest presetRequest = new PresetRequest();
-//        String data = setPresetSet("hls_265_720p", "h265");
+//        String data = setPresetSet("hls_265", "h265");
 //        presetRequest.setData(data);
 //        KvsErrResult presetResult = ksc.Preset(presetRequest);
 //        System.out.println(presetResult);
@@ -67,6 +88,29 @@ public class KETDemo {
         GetPresetListResult getPresetListResult = ksc.GetPresetList(getPresetListRequest);
         System.out.println(getPresetListResult);
 
+        //更新模板
+//        UpdatePresetRequest updatePresetRequest = new UpdatePresetRequest();
+//        String data1 = setPresetSet4Update("hls_265_720p", "scale to width of 360px and transcode to flv format");
+//        updatePresetRequest.setData(data1);
+//        KvsErrResult updatePresetresetResult = ksc.UpdatePreset(updatePresetRequest);
+//        System.out.println(updatePresetresetResult);
+
+//        //删除模板
+//        DeletePresetRequest deletePresetRequest = new DeletePresetRequest();
+//        deletePresetRequest.setPreset("hls_265");
+//        KvsErrResult deletePresetResult = ksc.DelPreset(deletePresetRequest);
+//        System.out.println(deletePresetResult);
+
+        //查询模板详情
+//        GetPresetDetailRequest getPresetDetailRequest = new GetPresetDetailRequest();
+//        getPresetDetailRequest.setPreset("hls_265_720p");
+//        GetPresetDetailResult getPresetDetailResult = ksc.GetPresetDetail(getPresetDetailRequest);
+//        System.out.println(getPresetDetailResult);
+
+
+        /**
+         * 任务管理
+         */
         // 创建任务
 //        CreateTaskRequest createTaskRequest = new CreateTaskRequest();
 //        String data2 = setTask("monitor_test", "qa-vod", "chenjin/video/test8/index.m3u8", "chenjin/video/8K/8k_test.mp4");//"liuhengxin/video/logo.mp4");

@@ -1,5 +1,7 @@
 package com.ksyun.ket.model;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class GetScreenshotNumberResult {
 	private int ErrNum;
 	private String ErrMsg;
@@ -49,4 +51,8 @@ public class GetScreenshotNumberResult {
 	}
 
 
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
+	}
 }

@@ -1,5 +1,7 @@
 package com.ksyun.ket.model;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class GetTaskByTaskIDResult {
 	private String ErrMsg;
 	private int ErrNum;
@@ -28,6 +30,12 @@ public class GetTaskByTaskIDResult {
 
 	public void setTaskInfo(TaskInfo taskInfo) {
 		TaskInfo = taskInfo;
+	}
+
+
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
 	}
 
 }

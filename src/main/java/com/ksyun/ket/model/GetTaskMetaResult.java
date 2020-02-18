@@ -1,5 +1,7 @@
 package com.ksyun.ket.model;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class GetTaskMetaResult {
 	
 	private String errMsg;
@@ -76,4 +78,11 @@ public class GetTaskMetaResult {
 //			metaInfoList.add(metainfo);
 //		}
 //	}
+
+
+
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
+	}
 }

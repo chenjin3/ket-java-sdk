@@ -1,5 +1,7 @@
 package com.ksyun.ket.model;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class QueryPipelineResult {
 	private int ErrNum;
 	private int Quota;
@@ -74,4 +76,9 @@ public class QueryPipelineResult {
 		this.taskStatus = taskStatus;
 	}
 
+
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
+	}
 }

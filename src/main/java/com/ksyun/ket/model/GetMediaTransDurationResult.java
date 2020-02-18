@@ -1,5 +1,7 @@
 package com.ksyun.ket.model;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class GetMediaTransDurationResult {
 	private int ErrNum;
 	private String ErrMsg;
@@ -48,4 +50,8 @@ public class GetMediaTransDurationResult {
 	}
 
 
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
+	}
 }

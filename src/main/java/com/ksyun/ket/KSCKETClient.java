@@ -1,5 +1,6 @@
 package com.ksyun.ket;
 
+import com.alibaba.fastjson.JSON;
 import com.ksyun.ket.model.*;
 import org.apache.http.*;
 import org.apache.http.client.HttpClient;
@@ -100,6 +101,33 @@ public class KSCKETClient {
         GetPresetListResult result = com.alibaba.fastjson.JSONObject.parseObject(resStr, GetPresetListResult.class);
         return result;
     }
+
+    //更新模板
+    public KvsErrResult UpdatePreset(UpdatePresetRequest updatePersetRequest) {
+        String resStr = this.post(this.endpoint + "Preset", null, updatePersetRequest.getData());
+        KvsErrResult result = com.alibaba.fastjson.JSONObject.parseObject(resStr, KvsErrResult.class);
+        return result;
+    }
+
+    //删除模板
+    public KvsErrResult DelPreset(DeletePresetRequest deletePresetRequest) {
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("Preset", deletePresetRequest.getPreset()));
+        String resStr = this.get(this.endpoint + "DelPreset", null, params);
+        KvsErrResult result = com.alibaba.fastjson.JSONObject.parseObject(resStr, KvsErrResult.class);
+        return result;
+    }
+
+    //查询模板详情
+    public GetPresetDetailResult GetPresetDetail(GetPresetDetailRequest getPresetDetailRequest) {
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("Preset", getPresetDetailRequest.getPreset()));
+        String resStr = this.get(this.endpoint + "GetPresetDetail", null, params);
+        GetPresetDetailResult result = com.alibaba.fastjson.JSONObject.parseObject(resStr, GetPresetDetailResult.class);
+        return result;
+    }
+
+
 
     private String post(String url, Map<String, String> headers, String body) {
         System.out.println("POST " + url);

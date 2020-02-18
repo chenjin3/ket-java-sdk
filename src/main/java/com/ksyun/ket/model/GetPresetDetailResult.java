@@ -1,5 +1,7 @@
 package com.ksyun.ket.model;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class GetPresetDetailResult {
 	private int ErrNum;
 	private String ErrMsg;
@@ -30,5 +32,8 @@ public class GetPresetDetailResult {
 		PresetDetail = presetDetail;
 	}
 
-
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
+	}
 }

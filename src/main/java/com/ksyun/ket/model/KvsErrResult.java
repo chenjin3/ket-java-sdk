@@ -1,5 +1,7 @@
 package com.ksyun.ket.model;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class KvsErrResult {
 	private int ErrNum;
 	private String ErrMsg;
@@ -16,11 +18,9 @@ public class KvsErrResult {
 		ErrMsg = errMsg;
 	}
 
+
 	@Override
 	public String toString() {
-		return
-				"ErrNum=" + ErrNum +
-				", ErrMsg=" + ErrMsg;
+		return JSONObject.toJSONString(this);
 	}
-	
 }
