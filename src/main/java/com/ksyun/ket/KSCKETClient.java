@@ -86,6 +86,21 @@ public class KSCKETClient {
         return result;
     }
 
+    //查询模板列表
+    public GetPresetListResult GetPresetList(GetPresetListRequest getPresetListRequest) {
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        //TODO: WithDetail为int型，暂不支持
+        if(getPresetListRequest.getPresetType() != null) {
+            params.add(new BasicNameValuePair("PresetType", getPresetListRequest.getPresetType()));
+        }
+        if(getPresetListRequest.getPresets() != null) {
+            params.add(new BasicNameValuePair("Presets", getPresetListRequest.getPreset()));
+        }
+        String resStr = this.get(this.endpoint + "GetPresetList", null, null);
+        GetPresetListResult result = com.alibaba.fastjson.JSONObject.parseObject(resStr, GetPresetListResult.class);
+        return result;
+    }
+
     private String post(String url, Map<String, String> headers, String body) {
         System.out.println("POST " + url);
 
@@ -126,8 +141,10 @@ public class KSCKETClient {
         HttpGet request = new HttpGet(url);
 
         try {
-            String str = EntityUtils.toString(new UrlEncodedFormEntity(params, Charset.forName("UTF-8")));
-            request.setURI(new URI(request.getURI().toString() + "?" + str));
+            if(params != null) {
+                String str = EntityUtils.toString(new UrlEncodedFormEntity(params, Charset.forName("UTF-8")));
+                request.setURI(new URI(request.getURI().toString() + "?" + str));
+            }
 
             setHeaders(request, headers);
 

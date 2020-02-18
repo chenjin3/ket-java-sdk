@@ -21,8 +21,8 @@ public class KETDemo {
         video.put("vr", "24"); //帧率
         video.put("vb", "900k"); //码率（转出码率或最大码率）
         video.put("vcodec", codec);
-        video.put("width", "1280");
-        video.put("height","720");
+        video.put("width", 1280);
+        video.put("height",720);
         video.put("codecParams","rctype=3:crf=28");
         audio.put("acodec", "aac");
         audio.put("an", 0); //不去除音频
@@ -51,28 +51,36 @@ public class KETDemo {
     }
 
     public static void main(String[] args) {
-        KSCKETClient ksc = new KSCKETClient("73404025","http://10.69.67.113:8905/offline/");
+        KSCKETClient ksc = new KSCKETClient("73404025","http://10.69.67.113:8091/offline/");
 
         //创建模板
+        //TODO: to test
 //        PresetRequest presetRequest = new PresetRequest();
 //        String data = setPresetSet("hls_265_720p", "h265");
 //        presetRequest.setData(data);
 //        KvsErrResult presetResult = ksc.Preset(presetRequest);
 //        System.out.println(presetResult);
 
+        //查询模板列表
+        GetPresetListRequest getPresetListRequest = new GetPresetListRequest();
+        getPresetListRequest.setPresetType("avtrans");
+        GetPresetListResult getPresetListResult = ksc.GetPresetList(getPresetListRequest);
+        System.out.println(getPresetListResult);
+
         // 创建任务
 //        CreateTaskRequest createTaskRequest = new CreateTaskRequest();
-//        String data2 = setTask("monitor_test", "qa-vod", "chenjin/video/test7/index.m3u8", "chenjin/video/8K/8k_test.mp4");//"liuhengxin/video/logo.mp4");
+//        String data2 = setTask("monitor_test", "qa-vod", "chenjin/video/test8/index.m3u8", "chenjin/video/8K/8k_test.mp4");//"liuhengxin/video/logo.mp4");
 //        createTaskRequest.setData(data2);
 //        CreateTasklResult createTasklResult = ksc.CreateTask(createTaskRequest);
 //        System.out.println(createTasklResult);
 
 
         //删除任务
-        DelTaskByTaskIDRequest delTaskByTaskIDRequest = new DelTaskByTaskIDRequest();
-        delTaskByTaskIDRequest.setTaskID("88124659ee1daaa50b75c043dd9533z020200218");
-        KvsErrResult delTaskByTaskIDResult = ksc.DelTaskByTaskID(delTaskByTaskIDRequest);
-        System.out.println(delTaskByTaskIDResult);
+//        DelTaskByTaskIDRequest delTaskByTaskIDRequest = new DelTaskByTaskIDRequest();
+//        delTaskByTaskIDRequest.setTaskID("88124659ee1daaa50b75c043dd9533z020200218");
+//        KvsErrResult delTaskByTaskIDResult = ksc.DelTaskByTaskID(delTaskByTaskIDRequest);
+//        System.out.println(delTaskByTaskIDResult);
+
 
     }
 }
