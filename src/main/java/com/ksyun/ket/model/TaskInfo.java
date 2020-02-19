@@ -1,5 +1,9 @@
 package com.ksyun.ket.model;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 public class TaskInfo {
 	private String TaskID;
 	private int IsFlow;
@@ -10,8 +14,8 @@ public class TaskInfo {
 	private String TaskStatus;
 	private String IsTop;
 	private String CreateTime;
-//	private com.ksc.internal.SdkInternalList<SrcInfo> SrcInfoList;
-//	private com.ksc.internal.SdkInternalList<FlowDataInfo> FlowDataList;
+	private List<SrcInfo> SrcInfoList;
+	private List<FlowDataInfo> FlowDataList;
 	private String DstAcl;
 	private String CbUrl;
 	private String CbMethod;
@@ -27,47 +31,47 @@ public class TaskInfo {
 		IsFlow = isFlow;
 	}
 
-//	public void setFlowDataList(java.util.Collection<FlowDataInfo> flowDataList) {
-//		if (flowDataList != null) {
-//			FlowDataList = new com.ksc.internal.SdkInternalList<FlowDataInfo>(flowDataList);
-//		}
-//	}
-//
-//	public void addFlowDataList(FlowDataInfo... flowDataInfos) {
-//		if (FlowDataList == null) {
-//			FlowDataList = new com.ksc.internal.SdkInternalList<FlowDataInfo>();
-//		}
-//		for (FlowDataInfo flowDataInfo : flowDataInfos) {
-//			FlowDataList.add(flowDataInfo);
-//		}
-//	}
-//
-//	public com.ksc.internal.SdkInternalList<FlowDataInfo> getFlowDataList() {
-//		return FlowDataList;
-//	}
-//
-//	public void setFlowDataList(com.ksc.internal.SdkInternalList<FlowDataInfo> flowDataList) {
-//		FlowDataList = flowDataList;
-//	}
-//
-//	public com.ksc.internal.SdkInternalList<SrcInfo> getSrcInfoList() {
-//		return SrcInfoList;
-//	}
-//
-//	public void setSrcInfoList(java.util.Collection<SrcInfo> srcInfoList) {
-//		if (srcInfoList != null) {
-//			SrcInfoList = new com.ksc.internal.SdkInternalList<SrcInfo>(srcInfoList);
-//		}
-//	}
-//
-//	public void addSrcInfoList(SrcInfo... scrinfos) {
-//		if (SrcInfoList == null) {
-//			SrcInfoList = new com.ksc.internal.SdkInternalList<SrcInfo>();
-//		}
-//		for (SrcInfo srcInfo : scrinfos) {
-//			SrcInfoList.add(srcInfo);
-//		}
-//	}
+	public void setFlowDataList(java.util.Collection<FlowDataInfo> flowDataList) {
+		if (flowDataList != null) {
+			FlowDataList = new ArrayList<FlowDataInfo>(flowDataList);
+		}
+	}
+
+	public void addFlowDataList(FlowDataInfo... flowDataInfos) {
+		if (FlowDataList == null) {
+			FlowDataList = new ArrayList<FlowDataInfo>();
+		}
+		for (FlowDataInfo flowDataInfo : flowDataInfos) {
+			FlowDataList.add(flowDataInfo);
+		}
+	}
+
+	public List<FlowDataInfo> getFlowDataList() {
+		return FlowDataList;
+	}
+
+	public void setFlowDataList(List<FlowDataInfo> flowDataList) {
+		FlowDataList = flowDataList;
+	}
+
+	public List<SrcInfo> getSrcInfoList() {
+		return SrcInfoList;
+	}
+
+	public void setSrcInfoList(java.util.Collection<SrcInfo> srcInfoList) {
+		if (srcInfoList != null) {
+			SrcInfoList = new ArrayList<SrcInfo>(srcInfoList);
+		}
+	}
+
+	public void addSrcInfoList(SrcInfo... scrinfos) {
+		if (SrcInfoList == null) {
+			SrcInfoList = new ArrayList<SrcInfo>();
+		}
+		for (SrcInfo srcInfo : scrinfos) {
+			SrcInfoList.add(srcInfo);
+		}
+	}
 
 	public String getTaskID() {
 		return TaskID;
@@ -181,8 +185,8 @@ public class TaskInfo {
 		ErrorCode = errorCode;
 	}
 
-//	public void setSrcInfoList(com.ksc.internal.SdkInternalList<SrcInfo> srcInfoList) {
-//		SrcInfoList = srcInfoList;
-//	}
+	public void setSrcInfoList(List<SrcInfo> srcInfoList) {
+		SrcInfoList = srcInfoList;
+	}
 
 }

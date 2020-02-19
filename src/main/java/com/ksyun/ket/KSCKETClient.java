@@ -2,6 +2,7 @@ package com.ksyun.ket;
 
 import com.alibaba.fastjson.JSON;
 import com.ksyun.ket.model.*;
+
 import org.apache.http.*;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -14,9 +15,11 @@ import org.apache.http.impl.client.DefaultHttpClient;
 //import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.nio.charset.Charset;
@@ -80,6 +83,61 @@ public class KSCKETClient {
         return result;
     }
 
+    //置顶任务
+    public KvsErrResult TopTaskByTaskID(TopTaskByTaskIDRequest topTaskByTaskIDRequest) {
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("TaskID", topTaskByTaskIDRequest.getTaskID()));
+        String resStr = this.get(this.endpoint + "TopTaskByTaskID", null, params);
+        KvsErrResult result = com.alibaba.fastjson.JSONObject.parseObject(resStr, KvsErrResult.class);
+        return result;
+    }
+
+    //查询任务列表
+    public GetTaskListResult GetTaskList(GetTaskListRequest getTaskListRequest) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        if((getTaskListRequest.getStartDate() != -1)) params.put("StartDate", getTaskListRequest.getStartDate());
+        if((getTaskListRequest.getEndDate() != -1)) params.put("EndDate", getTaskListRequest.getEndDate());
+        if((getTaskListRequest.getStartTime() != -1)) params.put("StartTime", getTaskListRequest.getStartTime());
+        if((getTaskListRequest.getEndTime() != -1)) params.put("EndTime", getTaskListRequest.getEndTime());
+        if((getTaskListRequest.getMarker() != -1)) params.put("Marker", getTaskListRequest.getMarker());
+        if((getTaskListRequest.getLimit() != -1)) params.put("Limit", getTaskListRequest.getLimit());
+        if((!getTaskListRequest.getErrorCode().equals("") )) params.put("ErrorCode", getTaskListRequest.getErrorCode());
+        if((!getTaskListRequest.getTaskStatus().equals(""))) params.put("TaskStatus", getTaskListRequest.getTaskStatus());
+        String resStr = this.get(this.endpoint + "GetTaskList", null, params);
+        GetTaskListResult result = com.alibaba.fastjson.JSONObject.parseObject(resStr, GetTaskListResult.class);
+        return result;
+    }
+
+    //查询任务详情
+    public GetTaskByTaskIDResult GetTaskByTaskID(GetTaskByTaskIDRequest getTaskByTaskIDRequest) {
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("TaskID", getTaskByTaskIDRequest.getTaskID()));
+        String resStr = this.get(this.endpoint + "GetTaskByTaskID", null, params);
+        GetTaskByTaskIDResult result = com.alibaba.fastjson.JSONObject.parseObject(resStr, GetTaskByTaskIDResult.class);
+        return result;
+    }
+
+    //查询任务META列表
+    public GetTaskMetaResult GetTaskMetaInfo(GetTaskMetaRequest getTaskMetaInfoRequest) {
+        Map<String, Object> params = new HashMap<String, Object>();
+        if((getTaskMetaInfoRequest.getStartDate() != -1)) params.put("StartDate", getTaskMetaInfoRequest.getStartDate());
+        if((getTaskMetaInfoRequest.getEndDate() != -1)) params.put("EndDate", getTaskMetaInfoRequest.getEndDate());
+        if((getTaskMetaInfoRequest.getMarker() != -1)) params.put("Marker", getTaskMetaInfoRequest.getMarker());
+        if((getTaskMetaInfoRequest.getLimit() != -1)) params.put("Limit", getTaskMetaInfoRequest.getLimit());
+        if((!getTaskMetaInfoRequest.getTaskID().equals("") )) params.put("ErrorCode", getTaskMetaInfoRequest.getTaskID());
+        String resStr = this.get(this.endpoint + "GetTaskMetaInfo", null, params);
+        GetTaskMetaResult result = com.alibaba.fastjson.JSONObject.parseObject(resStr, GetTaskMetaResult.class);
+        return result;
+    }
+
+    //同步获取文件的META信息接口
+    public FetchMetaInfoResult FetchMetaInfo(FetchMetaInfoRequest fetchMetaInfoRequest) {
+        String resStr = this.post(this.endpoint + "FetchMetaInfo", null, fetchMetaInfoRequest.getData());
+        FetchMetaInfoResult result = com.alibaba.fastjson.JSONObject.parseObject(resStr, FetchMetaInfoResult.class);
+        return result;
+    }
+
+
     //创建模板
     public KvsErrResult Preset( PresetRequest presetRequest) {
         String resStr = this.post(this.endpoint + "Preset", null, presetRequest.getData());
@@ -128,9 +186,8 @@ public class KSCKETClient {
     }
 
 
-
     private String post(String url, Map<String, String> headers, String body) {
-        System.out.println("POST " + url);
+        //System.out.println("POST " + url);
 
         HttpPost request = new HttpPost(url);
         String result = "";
@@ -163,14 +220,26 @@ public class KSCKETClient {
         return result;
     }
 
-    private String get(String url, Map<String, String> headers,List<NameValuePair> params) {
+    private String get(String url, Map<String, String> headers,Object params) {
         HttpResponse response = null;
         String result = "";
         HttpGet request = new HttpGet(url);
 
         try {
-            if(params != null) {
-                String str = EntityUtils.toString(new UrlEncodedFormEntity(params, Charset.forName("UTF-8")));
+            if (params instanceof List) {
+                String str = EntityUtils.toString(new UrlEncodedFormEntity((List<NameValuePair>)params, Charset.forName("UTF-8")));
+                request.setURI(new URI(request.getURI().toString() + "?" + str));
+            }
+            if(params instanceof Map) {
+                StringBuilder sb = new StringBuilder();
+                for(String key: ((Map<String, ?>) params).keySet()) {
+                    if (sb.length() > 0) {
+                        sb.append("&");
+                    }
+                    Object value = ((Map<String, ?>)params).get(key);
+                    sb.append(key + "=" + value);
+                }
+                String str = sb.toString();
                 request.setURI(new URI(request.getURI().toString() + "?" + str));
             }
 

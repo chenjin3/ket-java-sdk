@@ -2,11 +2,14 @@ package com.ksyun.ket.model;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GetTaskMetaResult {
 	
 	private String errMsg;
 	private int ErrNum;
-	//private com.ksc.internal.SdkInternalList<MetaInfo> metaInfoList;
+	private List<MetaInfo> metaList;
 	
 	private String StartDate;
 	private String EndDate;
@@ -57,28 +60,27 @@ public class GetTaskMetaResult {
 	public void setTotal(int total) {
 		Total = total;
 	}
-//	public void setMetaInfoList(
-//			com.ksc.internal.SdkInternalList<MetaInfo> metaInfoList) {
-//		this.metaInfoList = metaInfoList;
-//	}
-//	public com.ksc.internal.SdkInternalList<MetaInfo> getMetaInfoList() {
-//		return metaInfoList;
-//	}
-//	public void setMetaInfo(java.util.Collection<MetaInfo> metainfoList) {
-//		if (metainfoList != null) {
-//			metaInfoList = new com.ksc.internal.SdkInternalList<MetaInfo>(metainfoList);
-//        }
-//	}
-//
-//	public void addMeta(MetaInfo... metaInfos){
-//		if (metaInfoList == null) {
-//			metaInfoList = new com.ksc.internal.SdkInternalList<MetaInfo>();
-//        }
-//		for(MetaInfo metainfo:metaInfos){
-//			metaInfoList.add(metainfo);
-//		}
-//	}
+	public void setMetaList(
+			List<MetaInfo> metaList) {
+		this.metaList = metaList;
+	}
+	public List<MetaInfo> getMetaList() {
+		return metaList;
+	}
+	public void setMetaInfo(java.util.Collection<MetaInfo> metainfoList) {
+		if (metainfoList != null) {
+			metaList = new ArrayList<MetaInfo>(metainfoList);
+        }
+	}
 
+	public void addMeta(MetaInfo... metaInfos){
+		if (metaList == null) {
+			metaList = new ArrayList<MetaInfo>();
+        }
+		for(MetaInfo metainfo:metaInfos){
+			metaList.add(metainfo);
+		}
+	}
 
 
 	@Override

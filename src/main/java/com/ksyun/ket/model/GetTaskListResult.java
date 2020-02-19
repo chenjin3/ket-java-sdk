@@ -2,6 +2,9 @@ package com.ksyun.ket.model;
 
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GetTaskListResult {
 
 	private String StartDate;
@@ -11,6 +14,7 @@ public class GetTaskListResult {
 	private int Total;
 	private String ErrMsg;
 	private int ErrNum;
+	private List<TaskInfo> TaskInfo;
 
 
 	public String getStartDate() {
@@ -69,6 +73,28 @@ public class GetTaskListResult {
 		ErrNum = errNum;
 	}
 
+	public void setTaskInfo(List<TaskInfo> taskInfo) {
+		TaskInfo = taskInfo;
+	}
+
+	public List<TaskInfo> getTaskInfo() {
+		return TaskInfo;
+	}
+
+	public void setTaskInfoList(java.util.Collection<TaskInfo> taskInfoList) {
+		if (taskInfoList != null) {
+			TaskInfo = new ArrayList<TaskInfo>(taskInfoList);
+		}
+	}
+
+	public void addTask(TaskInfo... taskinfos) {
+		if (TaskInfo == null) {
+			TaskInfo = new ArrayList<TaskInfo>();
+		}
+		for (TaskInfo taskinfo : taskinfos) {
+			TaskInfo.add(taskinfo);
+		}
+	}
 
 	@Override
 	public String toString() {

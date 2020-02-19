@@ -91,6 +91,8 @@ public class GetTaskListRequest  {
 		Limit = -1;
 		StartDate = -1;
 		EndDate = -1;
+		StartTime = -1;
+		EndTime = -1;
 	}
 
 

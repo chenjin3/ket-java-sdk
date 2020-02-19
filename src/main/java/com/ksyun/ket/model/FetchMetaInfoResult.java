@@ -1,5 +1,7 @@
 package com.ksyun.ket.model;
 
+import com.alibaba.fastjson.JSONObject;
+
 public class FetchMetaInfoResult {
 	
 	private int ErrNum;
@@ -23,6 +25,9 @@ public class FetchMetaInfoResult {
 	public void setMetaInfo(String metaInfo) {
 		MetaInfo = metaInfo;
 	}
-	
 
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
+	}
 }
