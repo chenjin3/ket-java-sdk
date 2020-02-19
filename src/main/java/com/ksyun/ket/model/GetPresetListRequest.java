@@ -2,7 +2,7 @@ package com.ksyun.ket.model;
 
 public class GetPresetListRequest  {
 
-	private int withDetail;
+	private int withDetail = -1;
 
 	private String presettype;
 

@@ -147,15 +147,16 @@ public class KSCKETClient {
 
     //查询模板列表
     public GetPresetListResult GetPresetList(GetPresetListRequest getPresetListRequest) {
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        //TODO: WithDetail为int型，暂不支持
+        Map<String, Object> params = new HashMap<String, Object>();
+        if((getPresetListRequest.getWithDetail() != -1)) params.put("WithDetail", getPresetListRequest.getWithDetail());
+
         if(getPresetListRequest.getPresetType() != null) {
-            params.add(new BasicNameValuePair("PresetType", getPresetListRequest.getPresetType()));
+            params.put("PresetType", getPresetListRequest.getPresetType());
         }
         if(getPresetListRequest.getPresets() != null) {
-            params.add(new BasicNameValuePair("Presets", getPresetListRequest.getPreset()));
+            params.put("Presets", getPresetListRequest.getPreset());
         }
-        String resStr = this.get(this.endpoint + "GetPresetList", null, null);
+        String resStr = this.get(this.endpoint + "GetPresetList", null, params);
         GetPresetListResult result = com.alibaba.fastjson.JSONObject.parseObject(resStr, GetPresetListResult.class);
         return result;
     }

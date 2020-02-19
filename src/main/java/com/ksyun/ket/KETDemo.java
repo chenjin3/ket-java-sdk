@@ -92,10 +92,11 @@ public class KETDemo {
 //        System.out.println(presetResult);
 
         //查询模板列表
-//        GetPresetListRequest getPresetListRequest = new GetPresetListRequest();
-//        getPresetListRequest.setPresetType("avtrans");
-//        GetPresetListResult getPresetListResult = ksc.GetPresetList(getPresetListRequest);
-//        System.out.println(getPresetListResult);
+        GetPresetListRequest getPresetListRequest = new GetPresetListRequest();
+        getPresetListRequest.setPresetType("avtrans");
+        getPresetListRequest.setWithDetail(1);
+        GetPresetListResult getPresetListResult = ksc.GetPresetList(getPresetListRequest);
+        System.out.println(getPresetListResult);
 
         //更新模板
 //        UpdatePresetRequest updatePresetRequest = new UpdatePresetRequest();
@@ -165,11 +166,11 @@ public class KETDemo {
 //        System.out.println(getTaskMetaResult);
 
         //同步获取文件的META信息接口
-        FetchMetaInfoRequest fetchMetaInfoRequestRequest = new FetchMetaInfoRequest();
-        String data3 = setMetaInfo("/qa-vod/chenjin/video/KSHD/chenjin_vod2.m3u8");
-        fetchMetaInfoRequestRequest.setData(data3);
-        FetchMetaInfoResult fetchMetaInfoResult = ksc.FetchMetaInfo(fetchMetaInfoRequestRequest);
-        System.out.println(fetchMetaInfoResult);
+//        FetchMetaInfoRequest fetchMetaInfoRequestRequest = new FetchMetaInfoRequest();
+//        String data3 = setMetaInfo("/qa-vod/chenjin/video/KSHD/chenjin_vod2.m3u8");
+//        fetchMetaInfoRequestRequest.setData(data3);
+//        FetchMetaInfoResult fetchMetaInfoResult = ksc.FetchMetaInfo(fetchMetaInfoRequestRequest);
+//        System.out.println(fetchMetaInfoResult);
 
     }
 }
