@@ -186,6 +186,15 @@ public class KSCKETClient {
         return result;
     }
 
+    //查询任务队列信息
+    public QueryPipelineResult QueryPipeline(QueryPipelineRequest queryPipelineRequest) {
+        JSONObject data = new JSONObject();
+        data.put("PipelineName", queryPipelineRequest.getPipelineName());
+        String resStr = this.post(this.endpoint + "QueryPipeline", null,data.toString());
+        QueryPipelineResult result = com.alibaba.fastjson.JSONObject.parseObject(resStr, QueryPipelineResult.class);
+        return result;
+    }
+
 
     private String post(String url, Map<String, String> headers, String body) {
         //System.out.println("POST " + url);
