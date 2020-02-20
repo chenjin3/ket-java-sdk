@@ -188,13 +188,19 @@ public class KSCKETClient {
 
     //查询任务队列信息
     public QueryPipelineResult QueryPipeline(QueryPipelineRequest queryPipelineRequest) {
-        JSONObject data = new JSONObject();
-        data.put("PipelineName", queryPipelineRequest.getPipelineName());
-        String resStr = this.post(this.endpoint + "QueryPipeline", null,data.toString());
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
+        params.add(new BasicNameValuePair("PipelineName", queryPipelineRequest.getPipelineName()));
+        String resStr = this.get(this.endpoint + "QueryPipeline", null,params);
         QueryPipelineResult result = com.alibaba.fastjson.JSONObject.parseObject(resStr, QueryPipelineResult.class);
         return result;
     }
 
+    //更新任务队列
+    public KvsErrResult UpdatePipeline(UpdatePipelineRequest updatePipelineRequest) {
+        String resStr = this.post(this.endpoint + "UpdatePipeline", null, updatePipelineRequest.getData());
+        KvsErrResult result = com.alibaba.fastjson.JSONObject.parseObject(resStr, KvsErrResult.class);
+        return result;
+    }
 
     private String post(String url, Map<String, String> headers, String body) {
         //System.out.println("POST " + url);
@@ -289,6 +295,6 @@ public class KSCKETClient {
 
 
     public static void main(String[] args) {
-        System.out.println("hi");
+
     }
 }
