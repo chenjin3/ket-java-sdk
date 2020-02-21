@@ -7,7 +7,13 @@ import org.json.JSONObject;
 
 
 public class KETDemo {
-    //准备创建模板的数据
+    /**
+     * 准备创建模板的数据
+     * @param presetName 模板名
+     * @param codec  编码格式
+     * @return
+     * @throws JSONException
+     */
     private static String setPresetSet(String presetName, String codec) throws JSONException {
         String presetType = "avtrans";
         JSONObject data = new JSONObject();
@@ -34,7 +40,13 @@ public class KETDemo {
     }
 
 
-    //准备更新模板数据
+    /**
+     * 准备更新模板数据
+     * @param preset  模板名
+     * @param description 模板描述
+     * @return
+     * @throws JSONException
+     */
     private static String setPresetSet4Update(String preset, String description) throws JSONException {
         String presettype = "avtrans";
         JSONObject data = new JSONObject();
@@ -53,7 +65,15 @@ public class KETDemo {
         return data.toString();
     }
 
-    //准备创建任务的数据
+    /**
+     * 准备创建任务的数据
+     * @param preset  模板名
+     * @param dst_bucket  目的bucket
+     * @param dst_object_key  目的文件路径
+     * @param src_object_key 源文件路径
+     * @return
+     * @throws JSONException
+     */
     private static String setTask(String preset, String dst_bucket, String dst_object_key, String src_object_key)
             throws JSONException {
         JSONObject data = new JSONObject();
@@ -78,7 +98,11 @@ public class KETDemo {
         return data.toString();
     }
 
-    //设置更新任务队列请求参数
+    /**
+     * 设置更新任务队列请求参数
+     * @param PipelineName 队列名
+     * @return
+     */
     private static String setPipeline(String PipelineName) {
         JSONObject data = new JSONObject();
         data.put("PipelineName", PipelineName);
@@ -95,92 +119,92 @@ public class KETDemo {
         /**
          * 模板管理
          */
-//        //创建模板
-//        PresetRequest presetRequest = new PresetRequest();
-//        String data = setPresetSet("hls_265", "h265");
-//        presetRequest.setData(data);
-//        KvsErrResult presetResult = ksc.Preset(presetRequest);
-//        System.out.println(presetResult);
-//
-//        //查询模板列表
-//        GetPresetListRequest getPresetListRequest = new GetPresetListRequest();
-//        getPresetListRequest.setPresetType("avtrans");
-//        getPresetListRequest.setWithDetail(1);
-//        GetPresetListResult getPresetListResult = ksc.GetPresetList(getPresetListRequest);
-//        System.out.println(getPresetListResult);
-//
-//        //更新模板
-//        UpdatePresetRequest updatePresetRequest = new UpdatePresetRequest();
-//        String data1 = setPresetSet4Update("hls_265_720p", "scale to width of 360px and transcode to flv format");
-//        updatePresetRequest.setData(data1);
-//        KvsErrResult updatePresetresetResult = ksc.UpdatePreset(updatePresetRequest);
-//        System.out.println(updatePresetresetResult);
-//
-//        //删除模板
-//        DeletePresetRequest deletePresetRequest = new DeletePresetRequest();
-//        deletePresetRequest.setPreset("hls_265");
-//        KvsErrResult deletePresetResult = ksc.DelPreset(deletePresetRequest);
-//        System.out.println(deletePresetResult);
-//
-//        //查询模板详情
-//        GetPresetDetailRequest getPresetDetailRequest = new GetPresetDetailRequest();
-//        getPresetDetailRequest.setPreset("hls_265_720p");
-//        GetPresetDetailResult getPresetDetailResult = ksc.GetPresetDetail(getPresetDetailRequest);
-//        System.out.println(getPresetDetailResult);
+        //创建模板
+        PresetRequest presetRequest = new PresetRequest();
+        String data = setPresetSet("hls_265", "h265");
+        presetRequest.setData(data);
+        KvsErrResult presetResult = ksc.Preset(presetRequest);
+        System.out.println(presetResult);
+
+        //查询模板列表
+        GetPresetListRequest getPresetListRequest = new GetPresetListRequest();
+        getPresetListRequest.setPresetType("avtrans");
+        getPresetListRequest.setWithDetail(1);
+        GetPresetListResult getPresetListResult = ksc.GetPresetList(getPresetListRequest);
+        System.out.println(getPresetListResult);
+
+        //更新模板
+        UpdatePresetRequest updatePresetRequest = new UpdatePresetRequest();
+        String data1 = setPresetSet4Update("hls_265_720p", "scale to width of 360px and transcode to flv format");
+        updatePresetRequest.setData(data1);
+        KvsErrResult updatePresetresetResult = ksc.UpdatePreset(updatePresetRequest);
+        System.out.println(updatePresetresetResult);
+
+        //删除模板
+        DeletePresetRequest deletePresetRequest = new DeletePresetRequest();
+        deletePresetRequest.setPreset("hls_265");
+        KvsErrResult deletePresetResult = ksc.DelPreset(deletePresetRequest);
+        System.out.println(deletePresetResult);
+
+
+        //查询模板详情
+        GetPresetDetailRequest getPresetDetailRequest = new GetPresetDetailRequest();
+        getPresetDetailRequest.setPreset("hls_265_720p");
+        GetPresetDetailResult getPresetDetailResult = ksc.GetPresetDetail(getPresetDetailRequest);
+        System.out.println(getPresetDetailResult);
 
 
         /**
          * 任务管理
          */
         // 创建任务
-//        CreateTaskRequest createTaskRequest = new CreateTaskRequest();
-//        String data2 = setTask("monitor_test", "qa-vod", "chenjin/video/test9/index.m3u8", "chenjin/video/8K/8k_test.mp4");//"liuhengxin/video/logo.mp4");
-//        createTaskRequest.setData(data2);
-//        CreateTasklResult createTasklResult = ksc.CreateTask(createTaskRequest);
-//        System.out.println(createTasklResult);
+        CreateTaskRequest createTaskRequest = new CreateTaskRequest();
+        String data2 = setTask("ksc_souhu", "qa-vod", "chenjin/video/test9/index.m3u8", "chenjin/video/8K/8k_test.mp4");//"liuhengxin/video/logo.mp4");
+        createTaskRequest.setData(data2);
+        CreateTasklResult createTasklResult = ksc.CreateTask(createTaskRequest);
+        System.out.println(createTasklResult);
 
-//        //删除任务
-//        DelTaskByTaskIDRequest delTaskByTaskIDRequest = new DelTaskByTaskIDRequest();
-//        delTaskByTaskIDRequest.setTaskID("88124659ee1daaa50b75c043dd9533z020200218");
-//        KvsErrResult delTaskByTaskIDResult = ksc.DelTaskByTaskID(delTaskByTaskIDRequest);
-//        System.out.println(delTaskByTaskIDResult);
-//
-//        //置顶任务
-//        TopTaskByTaskIDRequest topTaskByTaskIDRequest = new TopTaskByTaskIDRequest();
-//        topTaskByTaskIDRequest.setTaskID("62c309bb40abe44b2814f68313d416z020200219");
-//        KvsErrResult TopTaskByTaskIDResult = ksc.TopTaskByTaskID(topTaskByTaskIDRequest);
-//        System.out.println(TopTaskByTaskIDResult);
-//
+        //删除任务
+        DelTaskByTaskIDRequest delTaskByTaskIDRequest = new DelTaskByTaskIDRequest();
+        delTaskByTaskIDRequest.setTaskID("88124659ee1daaa50b75c043dd9533z020200218");
+        KvsErrResult delTaskByTaskIDResult = ksc.DelTaskByTaskID(delTaskByTaskIDRequest);
+        System.out.println(delTaskByTaskIDResult);
 
-//        //查询任务列表
-//        GetTaskListRequest getTaskListRequest = new GetTaskListRequest();
-//        getTaskListRequest.setStartDate(20200202);
-//        getTaskListRequest.setEndDate(20200220);
-//        getTaskListRequest.setTaskStatus("succ");
-//        //getTaskListRequest.setErrorCode("3255");
-//        GetTaskListResult getTaskListResult = ksc.GetTaskList(getTaskListRequest);
-//        System.out.println(getTaskListResult);
-//
-//        //查询任务详情
-//        GetTaskByTaskIDRequest getTaskByTaskIDRequest = new GetTaskByTaskIDRequest();
-//        getTaskByTaskIDRequest.setTaskID("88124659ee1daaa50b75c043dd9533z020200218");
-//        GetTaskByTaskIDResult getTaskByTaskIDResult = ksc.GetTaskByTaskID(getTaskByTaskIDRequest);
-//        System.out.println(getTaskByTaskIDResult);
-//
-//        //查询任务META列表
-//        GetTaskMetaRequest getTaskMetaInfoRequest = new GetTaskMetaRequest();
-//        getTaskMetaInfoRequest.setTaskID("020256be6ab02c9351b037d9c7b7e3z020200219"); //需要是avinfo类型模板的任务
-//        getTaskMetaInfoRequest.setStartDate(20200202);
-//        GetTaskMetaResult getTaskMetaResult = ksc.GetTaskMetaInfo(getTaskMetaInfoRequest);
-//        System.out.println(getTaskMetaResult);
-//
-//        //同步获取文件的META信息接口
-//        //TODO: 私有化开发环境有问题
-//        FetchMetaInfoRequest fetchMetaInfoRequestRequest = new FetchMetaInfoRequest();
-//        String data3 = setMetaInfo("/qa-vod/chenjin/video/KSHD/chenjin_vod2.m3u8");
-//        fetchMetaInfoRequestRequest.setData(data3);
-//        FetchMetaInfoResult fetchMetaInfoResult = ksc.FetchMetaInfo(fetchMetaInfoRequestRequest);
-//        System.out.println(fetchMetaInfoResult);
+        //置顶任务
+        TopTaskByTaskIDRequest topTaskByTaskIDRequest = new TopTaskByTaskIDRequest();
+        topTaskByTaskIDRequest.setTaskID("62c309bb40abe44b2814f68313d416z020200219");
+        KvsErrResult TopTaskByTaskIDResult = ksc.TopTaskByTaskID(topTaskByTaskIDRequest);
+        System.out.println(TopTaskByTaskIDResult);
+
+
+        //查询任务列表
+        GetTaskListRequest getTaskListRequest = new GetTaskListRequest();
+        getTaskListRequest.setStartDate(20200202);
+        getTaskListRequest.setEndDate(20200220);
+        getTaskListRequest.setTaskStatus("succ");
+        //getTaskListRequest.setErrorCode("3255");
+        GetTaskListResult getTaskListResult = ksc.GetTaskList(getTaskListRequest);
+        System.out.println(getTaskListResult);
+
+        //查询任务详情
+        GetTaskByTaskIDRequest getTaskByTaskIDRequest = new GetTaskByTaskIDRequest();
+        getTaskByTaskIDRequest.setTaskID("88124659ee1daaa50b75c043dd9533z020200218");
+        GetTaskByTaskIDResult getTaskByTaskIDResult = ksc.GetTaskByTaskID(getTaskByTaskIDRequest);
+        System.out.println(getTaskByTaskIDResult);
+
+        //查询任务META列表
+        GetTaskMetaRequest getTaskMetaInfoRequest = new GetTaskMetaRequest();
+        getTaskMetaInfoRequest.setTaskID("020256be6ab02c9351b037d9c7b7e3z020200219"); //需要是avinfo类型模板的任务
+        getTaskMetaInfoRequest.setStartDate(20200202);
+        GetTaskMetaResult getTaskMetaResult = ksc.GetTaskMetaInfo(getTaskMetaInfoRequest);
+        System.out.println(getTaskMetaResult);
+
+        //同步获取文件的META信息接口
+        FetchMetaInfoRequest fetchMetaInfoRequestRequest = new FetchMetaInfoRequest();
+        String data3 = setMetaInfo("/qa-vod/chenjin/video/KSHD/chenjin_vod2.m3u8");
+        fetchMetaInfoRequestRequest.setData(data3);
+        FetchMetaInfoResult fetchMetaInfoResult = ksc.FetchMetaInfo(fetchMetaInfoRequestRequest);
+        System.out.println(fetchMetaInfoResult);
 
         //查询任务队列信息
         QueryPipelineRequest queryPipelineRequest = new QueryPipelineRequest();
@@ -188,11 +212,11 @@ public class KETDemo {
         QueryPipelineResult queryPipelineResult = ksc.QueryPipeline(queryPipelineRequest);
         System.out.println(queryPipelineResult);
 
-        //更新任务队列
-//        UpdatePipelineRequest updatePipelineRequest = new UpdatePipelineRequest();
-//        updatePipelineRequest.setData(setPipeline("usual"));
-//        KvsErrResult updatePipelineResult = ksc.UpdatePipeline(updatePipelineRequest);
-//        System.out.println(updatePipelineResult);
+        //更新任务队列信息
+        UpdatePipelineRequest updatePipelineRequest = new UpdatePipelineRequest();
+        updatePipelineRequest.setData(setPipeline("usual"));
+        KvsErrResult updatePipelineResult = ksc.UpdatePipeline(updatePipelineRequest);
+        System.out.println(updatePipelineResult);
 
     }
 }

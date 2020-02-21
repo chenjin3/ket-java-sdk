@@ -1,6 +1,6 @@
 package com.ksyun.ket.model;
 
-import com.sun.javafx.tools.packager.Param;
+import org.apache.http.NameValuePair;
 
 public class DetailPreset {
 	private String PresetType;
@@ -8,7 +8,7 @@ public class DetailPreset {
 	private String CreateTime;
 	private String UpdateTime;
 	
-	private com.sun.javafx.tools.packager.Param Param;
+	private NameValuePair Param;
 
 	public String getPresetType() {
 		return PresetType;
@@ -42,11 +42,11 @@ public class DetailPreset {
 		UpdateTime = updateTime;
 	}
 
-	public Param getParam() {
+	public NameValuePair getParam() {
 		return Param;
 	}
 
-	public void setParam(Param param) {
+	public void setParam(NameValuePair param) {
 		Param = param;
 	}
 

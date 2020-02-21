@@ -1,21 +1,18 @@
 package com.ksyun.ket;
 
-import com.alibaba.fastjson.JSON;
 import com.ksyun.ket.model.*;
 
 import org.apache.http.*;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
 import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-//import org.apache.http.impl.client.HttpClientBuilder;
+//import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -39,7 +36,7 @@ public class KSCKETClient {
     public KSCKETClient(String customID, String endpoint) {
         this.setCustomID(customID);
         this.setEndpoint(endpoint);
-        this.httpClient = new DefaultHttpClient();
+        this.httpClient = HttpClientBuilder.create().build();//new DefaultHttpClient();
     }
 
     public void setEndpoint(String endpoint) {
