@@ -51,17 +51,6 @@ public class KSCKETClient {
         }
     }
 
-    public static JSONArray TaskSrcInfo(String dst_bucket, String dst_object_key) throws JSONException {
-        JSONArray srcInfo = new JSONArray();
-        JSONObject insrcInfo = new JSONObject();
-        insrcInfo.put("path", "/" + dst_bucket + "/" + dst_object_key);
-        insrcInfo.put("index", 0);
-        insrcInfo.put("type", "video");
-
-        srcInfo.put(insrcInfo);
-
-        return srcInfo;
-    }
 
     //创建任务
     public CreateTasklResult CreateTask(CreateTaskRequest createTaskRequest) {
@@ -214,6 +203,8 @@ public class KSCKETClient {
         request.setEntity(entity);
 
         try {
+            System.out.println(EntityUtils.toString(entity));
+
             response = httpClient.execute(request);
             int statusCode = response.getStatusLine().getStatusCode();
 
@@ -295,3 +286,6 @@ public class KSCKETClient {
 
     }
 }
+
+
+
