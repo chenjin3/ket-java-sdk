@@ -12,7 +12,7 @@ public class CallbackServer {
 
     public static void main(String[] arg) throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(8001), 0);
-        server.createContext("/test", new TestHandler());
+        server.createContext("/cb", new TestHandler());
         server.start();
     }
 

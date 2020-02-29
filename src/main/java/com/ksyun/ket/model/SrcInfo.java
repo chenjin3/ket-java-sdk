@@ -1,5 +1,7 @@
 package com.ksyun.ket.model;
 
+import com.alibaba.fastjson.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ public class SrcInfo {
 	private int index;
 	private String type;
 	private List<Block> block;
+	private List<Auth> auth;
 
 	public String getPath() {
 		return path;
@@ -46,6 +49,30 @@ public class SrcInfo {
 		for (Block block : blocks) {
 			this.block.add(block);
 		}
+	}
+
+	public List<Auth> getAuth() {
+		return auth;
+	}
+
+	public void setAuth(java.util.Collection<Auth> auth_) {
+		if (auth != null) {
+			auth = new ArrayList<Auth>(auth_);
+		}
+	}
+
+	public void addAuthList(Auth... auths) {
+		if (auth == null) {
+			auth = new ArrayList<Auth>();
+		}
+		for (Auth auth_ : auths) {
+			this.auth.add(auth_);
+		}
+	}
+
+	@Override
+	public String toString() {
+		return JSONObject.toJSONString(this);
 	}
 	
 }

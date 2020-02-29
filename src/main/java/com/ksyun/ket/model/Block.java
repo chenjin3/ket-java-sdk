@@ -5,12 +5,20 @@ public class Block {
     private String key;
     private String iv;
     private String sha1;
-    private String size;
+    private int size;
 
     public Block(String path, String key, String iv) {
         this.path = path;
         this.key = key;
         this.iv = iv;
+    }
+
+    public Block(String path, String key, String iv, String sha1, int size) {
+        this.path = path;
+        this.key = key;
+        this.iv = iv;
+        this.sha1 = sha1;
+        this.size = size;
     }
 
     public String getPath() {
@@ -45,11 +53,11 @@ public class Block {
         this.sha1 = sha1;
     }
 
-    public String getSize() {
+    public int getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(int size) {
         this.size = size;
     }
 }
