@@ -8,6 +8,7 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 import org.apache.commons.io.IOUtils;
 
+//打印任务回调请求body
 public class CallbackServer {
 
     public static void main(String[] arg) throws Exception {
@@ -19,7 +20,7 @@ public class CallbackServer {
     static  class TestHandler implements HttpHandler{
 
         public void handle(HttpExchange exchange) throws IOException {
-            String response = "hello world";
+            String response = "Ok";
             //获得查询字符串(get)
             //String queryString =  exchange.getRequestURI().getQuery();
             //Map<String,String> queryStringInfo = formData2Dic(queryString);

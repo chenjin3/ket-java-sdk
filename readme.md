@@ -29,7 +29,7 @@ ket>Lifecycle> install来安装sdk到本地Maven仓库
 ```java
 import com.ksyun.ket.KSCKETClient;
 
-KSCKETClient ksc = new KSCKETClient("[私有化用户ID]","[转码系统API地址]");
+KSCKETClient ksc = new KSCKETClient("[私有化客户ID]","[转码系统API地址]");
 ```        
 
 ## 3. 接口说明
@@ -131,36 +131,48 @@ System.out.println(getPresetDetailResult);
 ### 任务管理接口
 #### 6）创建任务
 ```java
-CreateTaskRequest createTaskRequest = new CreateTaskRequest();
-String data2 = setTask("ksc_souhu", "qa-vod", "chenjin/video/test9/index.m3u8", "chenjin/video/8K/8k_test.mp4");//"liuhengxin/video/logo.mp4");
-createTaskRequest.setData(data2);
-CreateTasklResult createTasklResult = ksc.CreateTask(createTaskRequest);
-System.out.println(createTasklResult);
-/**
- * 准备创建任务的数据
- * @param preset  模板名
- * @param dst_bucket  目的bucket
- * @param dst_object_key  目的文件路径
- * @param src_object_key 源文件路径
- * @return
- * @throws JSONException
- */
-private static String setTask(String preset, String dst_bucket, String dst_object_key, String src_object_key)
-        throws JSONException {
-    JSONObject data = new JSONObject();
-    data.put("Preset", preset);
-    data.put("SrcInfo", KSCKETClient.TaskSrcInfo(dst_bucket, src_object_key));
-    data.put("DstBucket", dst_bucket);
-    data.put("DstObjectKey", dst_object_key);
-    data.put("DstDir", "");
-    data.put("DstAcl", "public-read");
-    data.put("CbUrl", "");
-    data.put("CbMethod", "POST");
-    //data.put("ExtParam", "{\"passParams\":{\"hls_segment_type\":\"fmp4\",\"hls_flags\":\"single_file\",\"hls_playlist_type\":\"vod\"}}");
-    //data.put("ExtParam", "{\"passParams\":{\"hls_segment_type\":\"fmp4\",\"hls_playlist_type\":\"vod\"}}");
-    data.put("ExtParam", "{\"passParams\":{\"movflags\":\"frag_keyframe+empty_moov\"}}");
-    return data.toString();
-}
+    CreateTaskRequest createTaskRequest = new CreateTaskRequest();
+    String data2 = setTask4kss("test_hls_265_720", "chenjin_test_ref_id");
+    createTaskRequest.setData(data2);
+    CreateTasklResult createTasklResult = ksc.CreateTask(createTaskRequest);
+    System.out.println(createTasklResult);
+    /**
+     * 准备创建kss下载上传ks3的转码任务的数据
+     * @param preset  模板名
+     * @param ref_id  用于跟踪转码任务的业务ID，在转码结果回调请求中会带上
+     * @return
+     * @throws JSONException
+     */
+    private static String setTask4kss(String preset, String ref_id)
+            throws JSONException {
+        JSONObject data = new JSONObject();
+        data.put("Preset", preset);
+        data.put("RefID", ref_id);
+        data.put("StoreType", StoreType.KSS.getType());
+
+        //prepare SrcInfo structure
+        JSONArray srcInfo = new JSONArray();
+        SrcInfo insrcInfo = new SrcInfo();
+        insrcInfo.setType("video");
+        insrcInfo.setPath("mfn.chenjin_test_kss.mp4"); // storeId, 格式一般是 mfn.${fileName}
+        Auth auth1 = new Auth("25b2a7ee0527e7e920a3542f622a69f94a65f7b9cfbc805c9d21ec2a169dffd8","67383fd6223035b4b93acc2bf4c27c39"); //第一个4M分块的加密秘钥和初始向量
+        Auth auth2 = new Auth("3dd540e1cb01567f3582d995af63855bbece9115b13d40763807f050cbae9b4b","c72ba64b71f9ee27efd067e4f1dfa112");//第二个4M分块的加密秘钥和初始向量
+        Auth auth3 = new Auth("0bea802f10421852d4ec34fa71ab0686c9b8b822728be6113da2e01d55e16953","808816383f9edb245a832d781c1b0ef8");
+        insrcInfo.addAuthList(auth1, auth2, auth3);
+        com.alibaba.fastjson.JSONObject jsonObject  =  (com.alibaba.fastjson.JSONObject) com.alibaba.fastjson.JSONObject.toJSON(insrcInfo);
+        srcInfo.put(jsonObject);
+        data.put("SrcInfo", srcInfo);
+
+        data.put("DstBucket", "qa-vod");//转出文件ks3目标存储桶
+        data.put("DstObjectKey", "chenjin/test5/chenjin.m3u8"); //转出文件ks3目的文件对象路径
+        data.put("DstKey", "60518cb5328262a1be2ed3c2001705afeb336066686a96759217c91ee31c789d"); //目标文件加密秘钥
+        data.put("DstIv", "da7753e7d2cd3d3bc77ac67515d7679e"); //目标文件AES初始化向量
+        data.put("DstAcl", "public-read");
+        data.put("CbUrl", "http://111.196.244.30:8001/cb");
+        data.put("CbMethod", "POST");
+        data.put("ExtParam", "{\"passParams\":{\"hls_segment_type\":\"fmp4\",\"hls_flags\":\"single_file\",\"hls_playlist_type\":\"vod\"}}");
+        return data.toString();
+    }
 ```
 对应API接口：https://docs.ksyun.com/documents/2397
 
@@ -261,3 +273,34 @@ private static String setPipeline(String PipelineName) {
 }
 ```
 对应API接口：https://docs.ksyun.com/documents/2395
+
+#### 15）接收任务结果回调格式
+GET或POST，根据创建任务时指定的CbMethod而定，建议采用POST。回调请求body格式如下：
+
+```json
+{
+    "TaskID": "39898b95f4577382ccc8f2d0c925a9z020200229",
+    "RefID": "2cb9a3ee0a62bb1aac743c6f1fa41eba",
+    "M3u8Index": "XXX",
+    "Status": 3,
+    "Type": "avtrans",
+    "Details": {
+        "errnum": 0,
+        "bucket": "qa-vod",
+        "items": [{
+            	"dstpath": "chenjin/xiaomi_private_out/VID_20200218_16405286ea1080b7a792c3.mp4.aes",
+            	"outMediainfo": "{\"metadata\":{\"rotate\":\"90\"},\"format\":{\"format_name\":\"mp4\",\"size\":29616559,\"duration\":\"11\",\"bit_rate\":21539312},\"streams\":[{\"codec_name\":\"h264\",\"codec_type\":\"video\",\"bit_rate\":128000,\"r_frame_rate\":\"30/1\"},{\"index\":1,\"codec_name\":\"aac\",\"codec_type\":\"audio\",\"bit_rate\":128000}]}",
+            	"ETag": "4cd930ae30ab73ec35c5c94b63ed0a5f"
+        }],
+        "status": "",
+        "progress": 0
+    }
+}
+其中，TaskID为任务ID，RefID为业务相关跟踪ID，M3u8Index字段保存m3u8文件内容（如果是hls协议）。Status表示
+任务执行状态，3为成功，4为失败，0为处理中（只在扩展参数中设置时才会在未完成时周期性回调）。Type为任务类型，转码任务都是"avtrans"。
+dstpath是输出文件的bucket下的相对路径，metainfo是媒体的元数据信息。
+
+其他字段说明详见： https://docs.ksyun.com/documents/2408
+
+
+```
