@@ -1,6 +1,7 @@
 package com.ksyun.ket.model;
 
-import org.apache.http.NameValuePair;
+import com.alibaba.fastjson.JSONObject;
+//import org.apache.http.NameValuePair;
 
 public class DetailPreset {
 	private String PresetType;
@@ -8,7 +9,7 @@ public class DetailPreset {
 	private String CreateTime;
 	private String UpdateTime;
 	
-	private NameValuePair Param;
+	private Param Param;
 
 	public String getPresetType() {
 		return PresetType;
@@ -42,13 +43,17 @@ public class DetailPreset {
 		UpdateTime = updateTime;
 	}
 
-	public NameValuePair getParam() {
+	public Param getParam() {
 		return Param;
 	}
 
-	public void setParam(NameValuePair param) {
+	public void setParam(Param param) {
 		Param = param;
 	}
 
-	
+	@Override
+	public String toString() {
+
+		return JSONObject.toJSONString(this);
+	}
 }

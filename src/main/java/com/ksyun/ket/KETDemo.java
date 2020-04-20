@@ -165,111 +165,113 @@ public class KETDemo {
     }
 
     public static void main(String[] args) {
-        KSCKETClient ksc = new KSCKETClient("73404025","http://10.69.67.113/offline/");
+        //KSCKETClient ksc = new KSCKETClient("73404025","http://10.69.67.113/offline/");
+        KSCKETClient ksc = new KSCKETClient("73404025","http://taskmanager.xiaomitest.ksyun.com:8095/offline/");
+        //KSCKETClient ksc = new KSCKETClient("73404025","http://120.92.213.72/offline/");
 
-        /**
-         * 模板管理
-         */
-        //创建模板
-        PresetRequest presetRequest = new PresetRequest();
-        String data = setPresetSet("hls_265", "h265");
-        presetRequest.setData(data);
-        KvsErrResult presetResult = ksc.Preset(presetRequest);
-        System.out.println(presetResult);
-
-        //查询模板列表
-        GetPresetListRequest getPresetListRequest = new GetPresetListRequest();
-        getPresetListRequest.setPresetType("avtrans");
-        getPresetListRequest.setWithDetail(1);
-        GetPresetListResult getPresetListResult = ksc.GetPresetList(getPresetListRequest);
-        System.out.println(getPresetListResult);
-
-        //更新模板
-        UpdatePresetRequest updatePresetRequest = new UpdatePresetRequest();
-        String data1 = setPresetSet4Update("hls_265_720p", "scale to width of 360px and transcode to flv format");
-        updatePresetRequest.setData(data1);
-        KvsErrResult updatePresetresetResult = ksc.UpdatePreset(updatePresetRequest);
-        System.out.println(updatePresetresetResult);
-
-        //删除模板
-        DeletePresetRequest deletePresetRequest = new DeletePresetRequest();
-        deletePresetRequest.setPreset("hls_265");
-        KvsErrResult deletePresetResult = ksc.DelPreset(deletePresetRequest);
-        System.out.println(deletePresetResult);
-
-
-        //查询模板详情
+//        /**
+//         * 模板管理
+//         */
+//        //创建模板
+//        PresetRequest presetRequest = new PresetRequest();
+//        String data = setPresetSet("hls_265", "h265");
+//        presetRequest.setData(data);
+//        KvsErrResult presetResult = ksc.Preset(presetRequest);
+//        System.out.println(presetResult);
+//
+//        //查询模板列表
+//        GetPresetListRequest getPresetListRequest = new GetPresetListRequest();
+//        getPresetListRequest.setPresetType("avtrans");
+//        getPresetListRequest.setWithDetail(1);
+//        GetPresetListResult getPresetListResult = ksc.GetPresetList(getPresetListRequest);
+//        System.out.println(getPresetListResult);
+//
+//        //更新模板
+//        UpdatePresetRequest updatePresetRequest = new UpdatePresetRequest();
+//        String data1 = setPresetSet4Update("hls_265_720p", "scale to width of 360px and transcode to flv format");
+//        updatePresetRequest.setData(data1);
+//        KvsErrResult updatePresetresetResult = ksc.UpdatePreset(updatePresetRequest);
+//        System.out.println(updatePresetresetResult);
+//
+//        //删除模板
+//        DeletePresetRequest deletePresetRequest = new DeletePresetRequest();
+//        deletePresetRequest.setPreset("hls_265");
+//        KvsErrResult deletePresetResult = ksc.DelPreset(deletePresetRequest);
+//        System.out.println(deletePresetResult);
+//
+//
+//        //查询模板详情
         GetPresetDetailRequest getPresetDetailRequest = new GetPresetDetailRequest();
-        getPresetDetailRequest.setPreset("hls_265_720p");
+        getPresetDetailRequest.setPreset("myd_test1");//hls_265_720p
         GetPresetDetailResult getPresetDetailResult = ksc.GetPresetDetail(getPresetDetailRequest);
         System.out.println(getPresetDetailResult);
 
 
-        /**
-         * 任务管理
-         */
-        // 创建任务
-        CreateTaskRequest createTaskRequest = new CreateTaskRequest();
-        String data2 = setTask4kss("test_hls_265_720", "3c6c1cf8a26080944ab95a42a05b1ca6");//"liuhengxin/video/logo.mp4");
-        //String data2 = setTask4ks3("test_hls_265_720", "chenjin_test_ref_id");
+//        /**
+//         * 任务管理
+//         */
+//        // 创建任务
+//        CreateTaskRequest createTaskRequest = new CreateTaskRequest();
+//        String data2 = setTask4kss("test_hls_265_720", "3c6c1cf8a26080944ab95a42a05b1ca6");//"liuhengxin/video/logo.mp4");
+//        //String data2 = setTask4ks3("test_hls_265_720", "chenjin_test_ref_id");
+//
+//        createTaskRequest.setData(data2);
+//        CreateTasklResult createTasklResult = ksc.CreateTask(createTaskRequest);
+//        System.out.println(createTasklResult);
 
-        createTaskRequest.setData(data2);
-        CreateTasklResult createTasklResult = ksc.CreateTask(createTaskRequest);
-        System.out.println(createTasklResult);
-
-        //删除任务
-        DelTaskByTaskIDRequest delTaskByTaskIDRequest = new DelTaskByTaskIDRequest();
-        delTaskByTaskIDRequest.setTaskID("88124659ee1daaa50b75c043dd9533z020200218");
-        KvsErrResult delTaskByTaskIDResult = ksc.DelTaskByTaskID(delTaskByTaskIDRequest);
-        System.out.println(delTaskByTaskIDResult);
-
-        //置顶任务
-        TopTaskByTaskIDRequest topTaskByTaskIDRequest = new TopTaskByTaskIDRequest();
-        topTaskByTaskIDRequest.setTaskID("62c309bb40abe44b2814f68313d416z020200219");
-        KvsErrResult TopTaskByTaskIDResult = ksc.TopTaskByTaskID(topTaskByTaskIDRequest);
-        System.out.println(TopTaskByTaskIDResult);
-
-
-        //查询任务列表
-        GetTaskListRequest getTaskListRequest = new GetTaskListRequest();
-        getTaskListRequest.setStartDate(20200202);
-        getTaskListRequest.setEndDate(20200220);
-        getTaskListRequest.setTaskStatus("succ");
-        //getTaskListRequest.setErrorCode("3255");
-        GetTaskListResult getTaskListResult = ksc.GetTaskList(getTaskListRequest);
-        System.out.println(getTaskListResult);
-
+//        //删除任务
+//        DelTaskByTaskIDRequest delTaskByTaskIDRequest = new DelTaskByTaskIDRequest();
+//        delTaskByTaskIDRequest.setTaskID("88124659ee1daaa50b75c043dd9533z020200218");
+//        KvsErrResult delTaskByTaskIDResult = ksc.DelTaskByTaskID(delTaskByTaskIDRequest);
+//        System.out.println(delTaskByTaskIDResult);
+//
+//        //置顶任务
+//        TopTaskByTaskIDRequest topTaskByTaskIDRequest = new TopTaskByTaskIDRequest();
+//        topTaskByTaskIDRequest.setTaskID("62c309bb40abe44b2814f68313d416z020200219");
+//        KvsErrResult TopTaskByTaskIDResult = ksc.TopTaskByTaskID(topTaskByTaskIDRequest);
+//        System.out.println(TopTaskByTaskIDResult);
+//
+//
+//        //查询任务列表
+//        GetTaskListRequest getTaskListRequest = new GetTaskListRequest();
+//        getTaskListRequest.setStartDate(20200202);
+//        getTaskListRequest.setEndDate(20200220);
+//        getTaskListRequest.setTaskStatus("succ");
+//        //getTaskListRequest.setErrorCode("3255");
+//        GetTaskListResult getTaskListResult = ksc.GetTaskList(getTaskListRequest);
+//        System.out.println(getTaskListResult);
+//
         //查询任务详情
-        GetTaskByTaskIDRequest getTaskByTaskIDRequest = new GetTaskByTaskIDRequest();
-        getTaskByTaskIDRequest.setTaskID("e5a18379ad1e90db91e7c93266c08cz020200301");
-        GetTaskByTaskIDResult getTaskByTaskIDResult = ksc.GetTaskByTaskID(getTaskByTaskIDRequest);
-        System.out.println(getTaskByTaskIDResult);
-
-        //查询任务META列表
-        GetTaskMetaRequest getTaskMetaInfoRequest = new GetTaskMetaRequest();
-        getTaskMetaInfoRequest.setTaskID("020256be6ab02c9351b037d9c7b7e3z020200219"); //需要是avinfo类型模板的任务
-        getTaskMetaInfoRequest.setStartDate(20200202);
-        GetTaskMetaResult getTaskMetaResult = ksc.GetTaskMetaInfo(getTaskMetaInfoRequest);
-        System.out.println(getTaskMetaResult);
-
-        //同步获取文件的META信息接口
-        FetchMetaInfoRequest fetchMetaInfoRequestRequest = new FetchMetaInfoRequest();
-        String data3 = setMetaInfo("/qa-vod/chenjin/video/KSHD/chenjin_vod2.m3u8");
-        fetchMetaInfoRequestRequest.setData(data3);
-        FetchMetaInfoResult fetchMetaInfoResult = ksc.FetchMetaInfo(fetchMetaInfoRequestRequest);
-        System.out.println(fetchMetaInfoResult);
-
-        //查询任务队列信息
-        QueryPipelineRequest queryPipelineRequest = new QueryPipelineRequest();
-        queryPipelineRequest.setPipelineName("usual");
-        QueryPipelineResult queryPipelineResult = ksc.QueryPipeline(queryPipelineRequest);
-        System.out.println(queryPipelineResult);
-
-        //更新任务队列信息
-        UpdatePipelineRequest updatePipelineRequest = new UpdatePipelineRequest();
-        updatePipelineRequest.setData(setPipeline("usual"));
-        KvsErrResult updatePipelineResult = ksc.UpdatePipeline(updatePipelineRequest);
-        System.out.println(updatePipelineResult);
+//        GetTaskByTaskIDRequest getTaskByTaskIDRequest = new GetTaskByTaskIDRequest();
+//        getTaskByTaskIDRequest.setTaskID("95d08144510e7fd659b58a5d1e96d0z020200302");
+//        GetTaskByTaskIDResult getTaskByTaskIDResult = ksc.GetTaskByTaskID(getTaskByTaskIDRequest);
+//        System.out.println(getTaskByTaskIDResult);
+//
+//        //查询任务META列表
+//        GetTaskMetaRequest getTaskMetaInfoRequest = new GetTaskMetaRequest();
+//        getTaskMetaInfoRequest.setTaskID("020256be6ab02c9351b037d9c7b7e3z020200219"); //需要是avinfo类型模板的任务
+//        getTaskMetaInfoRequest.setStartDate(20200202);
+//        GetTaskMetaResult getTaskMetaResult = ksc.GetTaskMetaInfo(getTaskMetaInfoRequest);
+//        System.out.println(getTaskMetaResult);
+//
+//        //同步获取文件的META信息接口
+//        FetchMetaInfoRequest fetchMetaInfoRequestRequest = new FetchMetaInfoRequest();
+//        String data3 = setMetaInfo("/qa-vod/chenjin/video/KSHD/chenjin_vod2.m3u8");
+//        fetchMetaInfoRequestRequest.setData(data3);
+//        FetchMetaInfoResult fetchMetaInfoResult = ksc.FetchMetaInfo(fetchMetaInfoRequestRequest);
+//        System.out.println(fetchMetaInfoResult);
+//
+//        //查询任务队列信息
+//        QueryPipelineRequest queryPipelineRequest = new QueryPipelineRequest();
+//        queryPipelineRequest.setPipelineName("usual");
+//        QueryPipelineResult queryPipelineResult = ksc.QueryPipeline(queryPipelineRequest);
+//        System.out.println(queryPipelineResult);
+//
+//        //更新任务队列信息
+//        UpdatePipelineRequest updatePipelineRequest = new UpdatePipelineRequest();
+//        updatePipelineRequest.setData(setPipeline("usual"));
+//        KvsErrResult updatePipelineResult = ksc.UpdatePipeline(updatePipelineRequest);
+//        System.out.println(updatePipelineResult);
 
     }
 }
