@@ -201,10 +201,10 @@ public class KETDemo {
 //
 //
 //        //查询模板详情
-        GetPresetDetailRequest getPresetDetailRequest = new GetPresetDetailRequest();
-        getPresetDetailRequest.setPreset("myd_test1");//hls_265_720p
-        GetPresetDetailResult getPresetDetailResult = ksc.GetPresetDetail(getPresetDetailRequest);
-        System.out.println(getPresetDetailResult);
+//        GetPresetDetailRequest getPresetDetailRequest = new GetPresetDetailRequest();
+//        getPresetDetailRequest.setPreset("myd_test1");//hls_265_720p
+//        GetPresetDetailResult getPresetDetailResult = ksc.GetPresetDetail(getPresetDetailRequest);
+//        System.out.println(getPresetDetailResult);
 
 
 //        /**
@@ -233,13 +233,13 @@ public class KETDemo {
 //
 //
 //        //查询任务列表
-//        GetTaskListRequest getTaskListRequest = new GetTaskListRequest();
-//        getTaskListRequest.setStartDate(20200202);
-//        getTaskListRequest.setEndDate(20200220);
-//        getTaskListRequest.setTaskStatus("succ");
-//        //getTaskListRequest.setErrorCode("3255");
-//        GetTaskListResult getTaskListResult = ksc.GetTaskList(getTaskListRequest);
-//        System.out.println(getTaskListResult);
+        GetTaskListRequest getTaskListRequest = new GetTaskListRequest();
+        getTaskListRequest.setStartDate(20200202);
+        getTaskListRequest.setEndDate(20200420);
+        getTaskListRequest.setTaskStatus("succ"); //可选值：init,exec,succ,fail
+        //getTaskListRequest.setErrorCode("3255");
+        GetTaskListResult getTaskListResult = ksc.GetTaskList(getTaskListRequest);
+        System.out.println(getTaskListResult);
 //
         //查询任务详情
 //        GetTaskByTaskIDRequest getTaskByTaskIDRequest = new GetTaskByTaskIDRequest();
