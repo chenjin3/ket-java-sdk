@@ -149,7 +149,7 @@ public class KSCKETClient {
 
     //更新模板
     public KvsErrResult UpdatePreset(UpdatePresetRequest updatePersetRequest) {
-        String resStr = this.post(this.endpoint + "Preset", null, updatePersetRequest.getData());
+        String resStr = this.post(this.endpoint + "UpdatePreset", null, updatePersetRequest.getData());
         KvsErrResult result = com.alibaba.fastjson.JSONObject.parseObject(resStr, KvsErrResult.class);
         return result;
     }
