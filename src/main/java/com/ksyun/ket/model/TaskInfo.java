@@ -1,6 +1,5 @@
 package com.ksyun.ket.model;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,7 @@ public class TaskInfo {
 	private String TaskStatus;
 	private String IsTop;
 	private String CreateTime;
-	private List<SrcInfo> SrcInfoList;
+	private List<SrcInfo> SrcInfo;
 	private List<FlowDataInfo> FlowDataList;
 	private String DstAcl;
 	private String CbUrl;
@@ -54,22 +53,22 @@ public class TaskInfo {
 		FlowDataList = flowDataList;
 	}
 
-	public List<SrcInfo> getSrcInfoList() {
-		return SrcInfoList;
+	public List<SrcInfo> getSrcInfo() {
+		return SrcInfo;
 	}
 
-	public void setSrcInfoList(java.util.Collection<SrcInfo> srcInfoList) {
-		if (srcInfoList != null) {
-			SrcInfoList = new ArrayList<SrcInfo>(srcInfoList);
+	public void setSrcInfo(java.util.Collection<SrcInfo> srcInfo) {
+		if (srcInfo != null) {
+			SrcInfo = new ArrayList<SrcInfo>(srcInfo);
 		}
 	}
 
 	public void addSrcInfoList(SrcInfo... scrinfos) {
-		if (SrcInfoList == null) {
-			SrcInfoList = new ArrayList<SrcInfo>();
+		if (SrcInfo == null) {
+			SrcInfo = new ArrayList<SrcInfo>();
 		}
 		for (SrcInfo srcInfo : scrinfos) {
-			SrcInfoList.add(srcInfo);
+			SrcInfo.add(srcInfo);
 		}
 	}
 
@@ -185,8 +184,8 @@ public class TaskInfo {
 		ErrorCode = errorCode;
 	}
 
-	public void setSrcInfoList(List<SrcInfo> srcInfoList) {
-		SrcInfoList = srcInfoList;
+	public void setSrcInfo(List<SrcInfo> srcInfoList) {
+		SrcInfo = srcInfoList;
 	}
 
 }

@@ -283,6 +283,32 @@ public class KSCKETClient {
 
 
     public static void main(String[] args) {
+        KSCKETClient ksc = new KSCKETClient("73404025","http://taskmanager.xiaomitest.ksyun.com:8095/offline/");
+//        //置顶任务
+//        TopTaskByTaskIDRequest topTaskByTaskIDRequest = new TopTaskByTaskIDRequest();
+//        topTaskByTaskIDRequest.setTaskID("62c309bb40abe44b2814f68313d416z020200219");
+//        KvsErrResult TopTaskByTaskIDResult = ksc.TopTaskByTaskID(topTaskByTaskIDRequest);
+//        System.out.println(TopTaskByTaskIDResult);
+
+
+        //        //同步获取文件的META信息接口
+//        FetchMetaInfoRequest fetchMetaInfoRequestRequest = new FetchMetaInfoRequest();
+//        String data3 = setMetaInfo("/qa-vod/chenjin/video/KSHD/chenjin_vod2.m3u8");
+//        fetchMetaInfoRequestRequest.setData(data3);
+//        FetchMetaInfoResult fetchMetaInfoResult = ksc.FetchMetaInfo(fetchMetaInfoRequestRequest);
+//        System.out.println(fetchMetaInfoResult);
+//
+//        //查询任务队列信息
+//        QueryPipelineRequest queryPipelineRequest = new QueryPipelineRequest();
+//        queryPipelineRequest.setPipelineName("usual");
+//        QueryPipelineResult queryPipelineResult = ksc.QueryPipeline(queryPipelineRequest);
+//        System.out.println(queryPipelineResult);
+//
+//        //更新任务队列信息
+//        UpdatePipelineRequest updatePipelineRequest = new UpdatePipelineRequest();
+//        updatePipelineRequest.setData(setPipeline("usual"));
+//        KvsErrResult updatePipelineResult = ksc.UpdatePipeline(updatePipelineRequest);
+//        System.out.println(updatePipelineResult);
 
     }
 }

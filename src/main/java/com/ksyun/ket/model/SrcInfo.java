@@ -41,6 +41,9 @@ public class SrcInfo {
 			block = new ArrayList<Block>(block);
 		}
 	}
+	public void setBlock(List<Block> blockList) {
+		block = blockList;
+	}
 
 	public void addBlockList(Block... blocks) {
 		if (block == null) {
@@ -59,6 +62,9 @@ public class SrcInfo {
 		if (auth != null) {
 			auth = new ArrayList<Auth>(auth_);
 		}
+	}
+	public void setAuth(List<Auth> authList) {
+		auth = authList;
 	}
 
 	public void addAuthList(Auth... auths) {
